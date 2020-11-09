@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="BasicAuth">
-    <meta name="author" content="siddub">
+    <meta name="author" content="Merav">
 
     <title>BasicAuth</title>
 
@@ -22,6 +22,7 @@
 <div class="container">
   <form method="POST" action="/login"  >
       <h2>Log in </h2>
+      <h4 style="color: red;"><%= error %></h4>
 
       <input name="email" type="text" class="form-control" placeholder="Email Address"
               autofocus="true"/>

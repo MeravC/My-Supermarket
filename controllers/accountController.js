@@ -11,10 +11,13 @@ const bcrypt = require('bcrypt');
 let accountRoutes = express.Router();
 
 accountRoutes.get('/login',function(req,res){
-    res.render('account/login');
+    console.log("get");
+    res.render('account/login',{error: req.session.error});
+    delete res.session.error; // remove from further requests
 });
 
 accountRoutes.post('/login',function(req,res){
+    console.log("post");
     var matched_users_promise = models.User.findAll({
         where: Sequelize.and(
             {email: req.body.email},
@@ -28,11 +31,14 @@ accountRoutes.post('/login',function(req,res){
                 req.session.email = req.body.email;
                 res.redirect('/');
             }
+            
             else{
-                res.redirect('/register');
+                req.session.error = 'Incorrect password';
+                res.redirect('/login');
             }
         }
         else{
+            req.session.error = 'Incorrect email';
             res.redirect('/login');
         }
     });
